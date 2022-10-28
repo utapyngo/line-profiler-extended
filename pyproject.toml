@@ -1,0 +1,107 @@
+[tool.poetry]
+name = "line-profiler-extended"
+version = "0.0.1"
+description = "Inherits awesome rkern's line-profiler and adds some useful features"
+authors = [
+    "Ivan Zaikin <ut@pyngo.tom.ru>",
+]
+license = "MIT"
+readme = "README.md"
+
+documentation = "https://utapyngo.github.io/line-profiler-extended"
+homepage = "https://utapyngo.github.io/line-profiler-extended"
+repository = "https://github.com/utapyngo/line-profiler-extended"
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Software Development :: Libraries",
+  "Typing :: Typed",
+]
+
+packages = [
+    { include = "line_profiler_extended", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1, <4.0"
+line-profiler = ">=3.5, <4.0"
+pytest = ">=5, <8"
+
+[tool.poetry.dev-dependencies]
+autoflake = "*"
+black = "*"
+coverage = "*"
+flake8 = "*"
+flake8-bugbear = "*"
+flake8-builtins = "*"
+flake8-comprehensions = "*"
+flake8-debugger = "*"
+flake8-eradicate = "*"
+flake8-logging-format = "*"
+isort = "*"
+mkdocstrings = "*"
+mkdocs-material = "*"
+mypy = "*"
+pep8-naming = "*"
+pre-commit = "*"
+pymdown-extensions = "*"
+pytest-github-actions-annotate-failures = "*"
+pytest-order = "*"
+python-kacl = "*"
+pyupgrade = "*"
+tryceratops = "*"
+
+[tool.poetry.plugins.pytest11]
+line_profiler_extended = "line_profiler_extended.pytest_plugin"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+force_single_line = true
+profile = "black"
+src_paths = ["src", "tests"]
+
+[tool.black]
+target-version = ["py37", "py38", "py39", "py310"]
+include = '\.pyi?$'
+
+[tool.coverage.run]
+branch = true
+include = [
+    "src/*",
+]
+omit = [
+    "src/line_profiler_extended/pytest_plugin.py"
+]
+
+[tool.coverage.report]
+fail_under = 100
+exclude_lines = [
+    'if TYPE_CHECKING:',
+    'pragma: no cover'
+]
+show_missing = true
+
+[tool.mypy]
+disallow_untyped_defs = true
+no_implicit_optional = true
+strict_equality = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+check_untyped_defs = true
+show_error_codes = true
+ignore_missing_imports = true
+exclude = ".venv"

@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/woltapp/wolt-python-package-cookiecutter",
+  "commit": "6669a067eeaaed3bee84312428a3e94cd13295f2",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "author_name": "Ivan Zaikin",
+      "author_email": "ut@pyngo.tom.ru",
+      "github_username": "utapyngo",
+      "project_name": "line-profiler-extended",
+      "project_slug": "line-profiler-extended",
+      "package_name": "line_profiler_extended",
+      "project_short_description": "Inherits awesome rkern's line-profiler and adds some useful features",
+      "_template": "https://github.com/woltapp/wolt-python-package-cookiecutter"
+    }
+  },
+  "directory": null
+}

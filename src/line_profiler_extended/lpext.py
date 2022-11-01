@@ -20,6 +20,7 @@ class LineProfilerExtended(line_profiler.LineProfiler):
         self,
         *items: Union[Path, ModuleType, Callable, str],
         eps: Optional[float] = None,
+        include_regex: str = "",
         exclude_regex: Optional[str] = None,
     ):
         super().__init__()
@@ -28,9 +29,13 @@ class LineProfilerExtended(line_profiler.LineProfiler):
             exclude_regex = r"^\."
         for item in items:
             if isinstance(item, Path):
-                self.add_modules_from_path(item, exclude_regex=exclude_regex)
+                self.add_modules_from_path(
+                    item, include_regex=include_regex, exclude_regex=exclude_regex
+                )
             elif isinstance(item, str):
-                self.add_modules_from_path(Path(item), exclude_regex=exclude_regex)
+                self.add_modules_from_path(
+                    Path(item), include_regex=include_regex, exclude_regex=exclude_regex
+                )
             elif isinstance(item, ModuleType):
                 self.add_module(item)
             elif isinstance(item, FunctionType):
@@ -48,9 +53,11 @@ class LineProfilerExtended(line_profiler.LineProfiler):
             nfuncsadded += self.add_function(func)
         return nfuncsadded
 
-    def add_modules_from_path(self, path: Path, exclude_regex: str) -> int:
+    def add_modules_from_path(
+        self, path: Path, include_regex: str = "", exclude_regex: str = ""
+    ) -> int:
         nfuncsadded = 0
-        for module in get_modules_from_path(path, exclude_regex):
+        for module in get_modules_from_path(path, include_regex, exclude_regex):
             nfuncsadded += self.add_module(module)
         return nfuncsadded
 

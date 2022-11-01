@@ -23,7 +23,7 @@ class TestLineProfilerExtended:
         exclude_regex = r"^\.|conftest$|__init__|^src|test_pytest_plugin$"
         LineProfilerExtended(Path(__file__).parent.parent, exclude_regex=exclude_regex)
         add_modules_from_path.assert_called_once_with(
-            Path(__file__).parent.parent, exclude_regex=exclude_regex
+            Path(__file__).parent.parent, include_regex="", exclude_regex=exclude_regex
         )
 
     def test_init_str_path_exclude_regex(self, mocker: MockerFixture) -> None:
@@ -33,7 +33,7 @@ class TestLineProfilerExtended:
         exclude_regex = r"^\.|conftest$|__init__|^src|test_pytest_plugin$"
         LineProfilerExtended("..", exclude_regex=exclude_regex)
         add_modules_from_path.assert_called_once_with(
-            Path(".."), exclude_regex=exclude_regex
+            Path(".."), include_regex="", exclude_regex=exclude_regex
         )
 
     def test_init_multiple_args(self, mocker: MockerFixture) -> None:
@@ -46,9 +46,11 @@ class TestLineProfilerExtended:
         LineProfilerExtended(Path(__file__).parent.parent, "..", module, module.func)
         add_module.assert_called_with(module)
         add_function.assert_called_with(module.func)
-        add_modules_from_path.assert_any_call(Path(".."), exclude_regex=r"^\.")
         add_modules_from_path.assert_any_call(
-            Path(__file__).parent.parent, exclude_regex=r"^\."
+            Path(".."), include_regex="", exclude_regex=r"^\."
+        )
+        add_modules_from_path.assert_any_call(
+            Path(__file__).parent.parent, include_regex="", exclude_regex=r"^\."
         )
 
     def test_init_unsupported_type(self) -> None:
@@ -57,7 +59,10 @@ class TestLineProfilerExtended:
 
     def test_add_modules_from_path(self) -> None:
         lp = LineProfilerExtended()
-        assert lp.add_modules_from_path(Path(__file__).parent.parent, r"^\.") > 0
+        assert (
+            lp.add_modules_from_path(Path(__file__).parent.parent, exclude_regex=r"^\.")
+            > 0
+        )
 
     def test_print_stats(self, capsys: CaptureFixture) -> None:
         lp = LineProfilerExtended(module, eps=1)

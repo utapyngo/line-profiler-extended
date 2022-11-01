@@ -52,7 +52,7 @@ def test_get_functions_from_module() -> None:
 
 def test_get_modules_from_path() -> None:
     modules = get_modules_from_path(
-        Path(__file__).parent.parent, r"^((?!test_utils).)*$"
+        Path(__file__).parent.parent, include_regex=r"test_utils$"
     )
     assert list(modules) == [sys.modules[__name__]]
 

@@ -24,6 +24,82 @@ Inherits awesome rkern's line-profiler and adds some useful features.
 pip install line-profiler-extended
 ```
 
+## Using the API
+
+```python
+from line_profiler_extended import LineProfilerExtended
+
+def foo():
+    pass
+
+# profile the foo function
+profiler = LineProfilerExtended(foo)
+
+# profile all functions from some_module
+import some_module
+profiler = LineProfilerExtended(some_module)
+
+# profile all functions from all modules found recursively
+# starting from the grandparent directory of the current file
+from pathlib import Path
+profiler = LineProfilerExtended(Path(__file__).parent.parent)
+
+# profile all functions from all modules found recursively in "path",
+# reporting only functions that took at least 1 millisecond
+profiler = LineProfilerExtended("path", eps=0.001)
+
+# profile all functions from all modules found recursively in "path" with "m" in module name but without "mm"
+profiler = LineProfilerExtended("path", include_regex="m", exclude_regex="mm")
+
+# all types of locations can be combined
+profiler = LineProfilerExtended(
+    Path("/some/path"), "path", some_module, foo,
+    eps=0.001, include_regex="m", exclude_regex="mm"
+)
+
+profiler.enable_by_count()
+profiler.runcall(foo)
+profiler.print_stats()
+```
+
+## Usage with IPython
+
+```ipython
+%load_ext line_profiler_extended
+
+# profile the foo function
+%lpext -p foo foo()
+
+# profile all functions from some_module
+%lpext -p some_module foo()
+
+# profile all functions from all modules found recursively in some path
+from pathlib import Path
+%lpext -p Path("/some/path") foo()
+
+# profile all functions from all modules found recursively in "path",
+# reporting only functions that took at least 1 millisecond
+%lpext -p "path" --eps 0.001 foo()
+
+# profile all functions from all modules found recursively in "path" with "m" in module name but without "mm"
+%lpext -p "path" --include "m" --exclude "mm" foo()
+
+# all types of locations can be combined
+%lpext -p Path(__file__).parent.parent -p "path" -p some_module -p foo --eps 0.001 --include "m" --exclude "mm" foo()
+```
+
+## Usage with pytest
+
+```python
+import pytest
+from pathlib import Path
+
+# all args are passed directly to the LineProfilerExtended constructor
+@pytest.mark.line_profile.with_args(Path(__file__).parent.parent, eps=0.01)
+def test_foo():
+    pass
+```
+
 ## Development
 
 * Clone this repository

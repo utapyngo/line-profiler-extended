@@ -60,7 +60,9 @@ class TestLineProfilerExtended:
     def test_add_modules_from_path(self) -> None:
         lp = LineProfilerExtended()
         assert (
-            lp.add_modules_from_path(Path(__file__).parent.parent, exclude_regex=r"^\.")
+            lp.add_modules_from_path(
+                Path(__file__).parent.parent, exclude_regex=r"^\.|ipython"
+            )
             > 0
         )
 

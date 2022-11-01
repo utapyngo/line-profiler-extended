@@ -36,6 +36,7 @@ packages = [
 python = ">=3.7.1, <4.0"
 line-profiler = ">=3.5, <4.0"
 pytest = ">=5, <8"
+IPython = { version = ">=0.13", optional = true }
 
 [tool.poetry.dev-dependencies]
 autoflake = "*"
@@ -62,6 +63,9 @@ python-kacl = "*"
 pyupgrade = "*"
 tryceratops = "*"
 
+[tool.poetry.extras]
+ipython = ["IPython"]
+
 [tool.poetry.plugins.pytest11]
 line_profiler_extended = "line_profiler_extended.pytest_plugin"
 
@@ -84,7 +88,8 @@ include = [
     "src/*",
 ]
 omit = [
-    "src/line_profiler_extended/pytest_plugin.py"
+    "src/line_profiler_extended/ipython_extension.py",
+    "src/line_profiler_extended/pytest_plugin.py",
 ]
 
 [tool.coverage.report]

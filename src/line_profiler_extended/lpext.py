@@ -26,7 +26,7 @@ class LineProfilerExtended(line_profiler.LineProfiler):
         super().__init__()
         self.eps = eps if eps is not None else 0.1
         if exclude_regex is None:
-            exclude_regex = r"^\."
+            exclude_regex = r""
         for item in items:
             if isinstance(item, Path):
                 self.add_modules_from_path(

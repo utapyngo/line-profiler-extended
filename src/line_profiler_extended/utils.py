@@ -19,6 +19,8 @@ def get_modules_from_path(
     os.chdir(path)
     for p in path.glob("**/*.py"):
         module_name = str(p.relative_to(path).with_suffix("")).replace("/", ".")
+        if module_name.startswith("."):
+            continue
         if include_regex and not re.search(include_regex, module_name):
             continue
         if exclude_regex and re.search(exclude_regex, module_name):

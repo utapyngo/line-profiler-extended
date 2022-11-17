@@ -47,10 +47,10 @@ class TestLineProfilerExtended:
         add_module.assert_called_with(module)
         add_function.assert_called_with(module.func)
         add_modules_from_path.assert_any_call(
-            Path(".."), include_regex="", exclude_regex=r"^\."
+            Path(".."), include_regex="", exclude_regex=r""
         )
         add_modules_from_path.assert_any_call(
-            Path(__file__).parent.parent, include_regex="", exclude_regex=r"^\."
+            Path(__file__).parent.parent, include_regex="", exclude_regex=r""
         )
 
     def test_init_unsupported_type(self) -> None:

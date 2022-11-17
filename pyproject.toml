@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "line-profiler-extended"
-version = "0.1.0"
+version = "0.0.3"
 description = "Inherits awesome rkern's line-profiler and adds some useful features"
 authors = [
     "Ivan Zaikin <ut@pyngo.tom.ru>",
@@ -24,7 +24,6 @@ classifiers = [
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
   "Topic :: Software Development :: Libraries",
   "Typing :: Typed",
 ]
@@ -78,7 +77,7 @@ profile = "black"
 src_paths = ["src", "tests"]
 
 [tool.black]
-target-version = ["py37", "py38", "py39", "py310", "py311"]
+target-version = ["py37", "py38", "py39", "py310"]
 include = '\.pyi?$'
 
 [tool.coverage.run]

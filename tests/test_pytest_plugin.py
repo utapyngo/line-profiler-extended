@@ -32,7 +32,7 @@ def test_mark(pytester: Pytester) -> None:
     result.stdout.fnmatch_lines(
         [
             "=============== Line profile result for test_mark.py::test_mark ================",
-            "Timer unit: 1e-06 s",
+            "Timer unit: 1e-09 s",
         ]
     )
     result.stdout.fnmatch_lines(

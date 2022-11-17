@@ -62,7 +62,7 @@ def test_get_stats() -> None:
     lp.add_function(func)
     stats = get_stats(lp)
     print(stats)
-    assert stats.startswith("Timer unit: 1e-06 s\n\nTotal time: 0 s\nFile: ")
+    assert stats.startswith("Timer unit: 1e-09 s\n\nTotal time: 0 s\nFile: ")
     assert (
         "Function: func at line 1\n"
         "\n"

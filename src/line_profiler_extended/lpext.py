@@ -44,7 +44,10 @@ class LineProfilerExtended(line_profiler.LineProfiler):
                 raise TypeError(f"Unsupported argument type: {type(item)}")
 
     def add_function(self, func: Callable) -> int:
-        super().add_function(func)
+        if hasattr(func, "__wrapped__"):
+            super().add_function(func.__wrapped__)
+        else:
+            super().add_function(func)
         return 1
 
     def add_module(self, mod: ModuleType) -> int:

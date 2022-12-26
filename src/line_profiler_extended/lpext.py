@@ -58,7 +58,7 @@ class LineProfilerExtended(line_profiler.LineProfiler):
         for func in get_functions_from_module(mod):
             try:
                 nfuncsadded += self.add_function(func)
-            except ValueError as e:
+            except ValueError as e:  # pragma: no cover
                 if e.args[0] == "code: co_code is malformed":
                     logger.warning("Skipping function %s", func.__qualname__)
                 else:

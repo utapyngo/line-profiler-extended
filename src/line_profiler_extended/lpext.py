@@ -1,3 +1,4 @@
+import logging
 import sys
 from pathlib import Path
 from types import FunctionType
@@ -13,6 +14,8 @@ import line_profiler
 
 from line_profiler_extended.utils import get_functions_from_module
 from line_profiler_extended.utils import get_modules_from_path
+
+logger = logging.getLogger(__name__)
 
 
 class LineProfilerExtended(line_profiler.LineProfiler):
@@ -53,7 +56,13 @@ class LineProfilerExtended(line_profiler.LineProfiler):
     def add_module(self, mod: ModuleType) -> int:
         nfuncsadded = 0
         for func in get_functions_from_module(mod):
-            nfuncsadded += self.add_function(func)
+            try:
+                nfuncsadded += self.add_function(func)
+            except ValueError as e:
+                if e.args[0] == "code: co_code is malformed":
+                    logger.warning("Skipping function %s", func.__qualname__)
+                else:
+                    raise
         return nfuncsadded
 
     def add_modules_from_path(

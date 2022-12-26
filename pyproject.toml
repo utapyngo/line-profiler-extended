@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "line-profiler-extended"
-version = "0.0.2"
+version = "0.0.3"
 description = "Inherits awesome rkern's line-profiler and adds some useful features"
 authors = [
     "Ivan Zaikin <ut@pyngo.tom.ru>",
